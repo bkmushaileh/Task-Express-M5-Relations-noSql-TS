@@ -29,6 +29,9 @@ const createPost = async (req: Request, res: Response) => {
 const getPostById = async (req: Request, res: Response) => {
   try {
     const post = await Post.findById(req.params.id);
+    if (!post) {
+      res.status(401).json({ message: "Post not Found!" });
+    }
     res.status(200).json(post);
   } catch (error) {
     res.status(500).json({ message: "Error fetching post" });
